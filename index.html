@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        .box1{
+            position:relative;
+            height: 150px;
+            width: 150px;
+            background: #ab8d8d;
+            top: 20px;
+        }
+
+        .box2{
+            position:absolute;
+            height: 150px;
+            width: 150px;
+            background: #c80000;
+            top:250px;
+            left: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1"></div>
+    <div class="box2"></div>
+
+    <script>
+        const box1 = document.querySelector(".box1");
+        const box2 = document.querySelector(".box2");
+
+        let b2T = box2.offsetTop;
+        let b2L = box2.offsetLeft;
+
+        document.addEventListener('keydown',(e)=>{
+            if(e.code == 'ArrowUp'){
+                box1.style.top = `${box1.offsetTop - 15}px`;
+            }
+            else if(e.code == 'ArrowDown'){
+                box1.style.top = `${box1.offsetTop + 15}px`;
+            }
+            else if(e.code == 'ArrowLeft'){
+                box1.style.left = `${box1.offsetLeft - 15}px`;
+            }
+            else if(e.code == 'ArrowRight'){
+                box1.style.left = `${box1.offsetLeft + 15}px`;
+            }
+            let collider_Box1 = {
+                top:box1.offsetTop,
+                bottom:box1.offsetTop+box1.offsetHeight,
+                left:box1.offsetLeft,
+                right:box1.offsetLeft+box1.offsetWidth
+            }
+
+            let collider_Box2 = {
+                top:box2.offsetTop,
+                bottom:box2.offsetTop+box2.offsetHeight,
+                left:box2.offsetLeft,
+                right:box2.offsetLeft+box2.offsetWidth
+            }
+if((collider_Box1.right >= collider_Box2.left) && (collider_Box1.left <= collider_Box2.right) && (collider_Box1.bottom >= collider_Box2.top) && (collider_Box1.top <= collider_Box2.bottom)){
+            
+                box1.style.background = '#000000';
+                box2.style.background = '#000000';
+            }else{
+                box1.style.background = '#ab8d8d';
+                box2.style.background = '#c80000';
+                console.log("No");
+            }
+        })
+    </script>
+</body>
+</html>
